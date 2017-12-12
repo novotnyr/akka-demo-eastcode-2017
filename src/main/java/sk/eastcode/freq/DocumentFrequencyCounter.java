@@ -15,6 +15,9 @@ public class DocumentFrequencyCounter extends AbstractLoggingActor {
 
     void handleDocument(String document) {
         log().info("Processing document: {}", document);
+        if (Math.random() < 0.05) {
+            throw new IllegalStateException("Failed to process document " + document);
+        }
         Map<String, Long> frequencies = Utils.calculateFrequencies(document);
         getSender().tell(frequencies, getSelf());
     }

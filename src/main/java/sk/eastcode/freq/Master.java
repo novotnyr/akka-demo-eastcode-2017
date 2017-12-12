@@ -11,7 +11,10 @@ import java.util.Map;
 public class Master extends AbstractLoggingActor {
     private Map<String, Long> allFrequencies = new HashMap<>();
 
-    private ActorRef documentFrequencyCounter = getContext().actorOf(DocumentFrequencyCounter.props().withRouter(new RoundRobinPool(2)));
+    private ActorRef documentFrequencyCounter = getContext().actorOf(DocumentFrequencyCounter.props()
+            .withRouter(new RoundRobinPool(2)
+                    .withSupervisorStrategy(Utils.stopOnIllegalStateExceptionStrategy())
+            ));
 
     @Override
     public Receive createReceive() {
