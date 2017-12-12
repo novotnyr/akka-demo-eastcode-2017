@@ -1,5 +1,9 @@
 package sk.eastcode.freq;
 
+  import akka.actor.OneForOneStrategy;
+import akka.actor.SupervisorStrategy;
+import akka.japi.pf.DeciderBuilder;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,5 +24,12 @@ public class Utils {
             aggregatedData.put(key, existingFrequency + data2.get(key));
         }
         return aggregatedData;
+    }
+
+    public static SupervisorStrategy stopOnIllegalStateExceptionStrategy() {
+        return new OneForOneStrategy(DeciderBuilder
+                .match(IllegalStateException.class, exception -> SupervisorStrategy.stop())
+                .matchAny(o -> SupervisorStrategy.escalate())
+                .build());
     }
 }
