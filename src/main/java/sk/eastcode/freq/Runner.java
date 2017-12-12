@@ -3,7 +3,6 @@ package sk.eastcode.freq;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
-import sk.eastcode.actor.carol.CarolActor;
 
 public class Runner {
     public static void main(String[] args) {

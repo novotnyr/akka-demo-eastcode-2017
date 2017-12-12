@@ -8,7 +8,9 @@ import java.util.Map;
 public class DocumentFrequencyCounter extends AbstractLoggingActor {
     @Override
     public Receive createReceive() {
-        return receiveBuilder().match(String.class, this::handleDocument).build();
+        return receiveBuilder()
+                .match(String.class, this::handleDocument)
+                .build();
     }
 
     void handleDocument(String document) {
@@ -17,6 +19,6 @@ public class DocumentFrequencyCounter extends AbstractLoggingActor {
     }
 
     public static Props props() {
-        return Props.create(Master.class);
+        return Props.create(DocumentFrequencyCounter.class);
     }
 }
